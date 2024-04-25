@@ -4,4 +4,5 @@ public interface MembershipDAO {
 
     boolean addMember();
 
+    void sleep();
 }
