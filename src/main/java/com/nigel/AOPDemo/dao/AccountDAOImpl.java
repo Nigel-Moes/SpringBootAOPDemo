@@ -12,7 +12,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public void addAccount(Account theAccount, boolean flag) {
-        System.out.print(getClass() + ": ADDING AN ACCOUNT\n");
+        System.out.print(getClass() + ": addAccount method\n");
     }
 
     @Override
@@ -22,22 +22,22 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     public String getName() {
-        System.out.print(getClass() + ": in getName()\n");
+        System.out.print(getClass() + ": getName method \n");
         return name;
     }
 
     public void setName(String name) {
-        System.out.print(getClass() + ": in setName()\n");
+        System.out.print(getClass() + ": setName method \n");
         this.name = name;
     }
 
     public String getServiceCode() {
-        System.out.print(getClass() + ": in getServiceCode()\n");
+        System.out.print(getClass() + ": getServiceCode method\n");
         return ServiceCode;
     }
 
     public void setServiceCode(String serviceCode) {
-        System.out.print(getClass() + ": in setServiceCode()\n");
+        System.out.print(getClass() + ": setServiceCode method\n");
         ServiceCode = serviceCode;
     }
 }

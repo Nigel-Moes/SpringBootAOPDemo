@@ -7,7 +7,7 @@ public class MembershipDAOImpl implements MembershipDAO {
 
     @Override
     public boolean addMember() {
-        System.out.print(getClass() + ": ADDING A MEMBERSHIP ACCOUNT\n");
+        System.out.print(getClass() + ": addMember method\n");
         return true;
     }
 

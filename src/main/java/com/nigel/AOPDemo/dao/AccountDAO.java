@@ -8,7 +8,6 @@ public interface AccountDAO {
 
     boolean doWork();
 
-
     public String getName();
 
     public void setName(String name);
