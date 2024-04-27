@@ -27,6 +27,8 @@ public class AopDemoApplication {
 
 		// call the business methods
 		Account myAccount = new Account();
+		myAccount.setName("George");
+		myAccount.setLevel("Platinum");
 		theAccountDAO.addAccount(myAccount, true);
 		theAccountDAO.doWork();
 
@@ -42,5 +44,4 @@ public class AopDemoApplication {
 		theMembershipDAO.sleep();
 
 	}
-
 }
