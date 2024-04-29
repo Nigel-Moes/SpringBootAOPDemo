@@ -2,6 +2,7 @@ package com.nigel.AOPDemo.aspect;
 
 import com.nigel.AOPDemo.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
@@ -103,4 +104,43 @@ public class MyDemoLoggingAspect {
         String method = theJoinPoint.getSignature().toShortString();
         System.out.println("\n====>>> Executing @After (finally) on method: " + method);
     }
+
+    @Around("execution(* com.nigel.AOPDemo.service.*.getFortune(..))")
+    public Object aroundGetFortune(
+            ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
+
+        // print out method we are advising on
+        // print out which method we are advising on
+        String method = theProceedingJoinPoint.getSignature().toShortString();
+        System.out.println("\n====>>> Executing @Around on method: " + method);
+
+        // get begin timestamp
+        long begin = System.currentTimeMillis();
+
+        // execute the method
+        Object result = null;
+        try{
+            result = theProceedingJoinPoint.proceed();
+        }
+        catch (Exception exc) {
+            // log the exception
+            System.out.println(exc.getMessage());
+
+            // give user a custom message
+            // result = "Major accident! Problem is being solved";
+
+            // rethrow exception
+            throw exc;
+        }
+
+        // get end timestamp
+        long end = System.currentTimeMillis();
+
+        // compute duration and display it
+        long duration = end - begin;
+        System.out.println("\n=====> Duration: " + duration / 1000.0 + " seconds");
+
+        return result;
+    }
+
 }
