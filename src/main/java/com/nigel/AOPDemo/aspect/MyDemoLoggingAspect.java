@@ -2,9 +2,7 @@ package com.nigel.AOPDemo.aspect;
 
 import com.nigel.AOPDemo.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -72,7 +70,6 @@ public class MyDemoLoggingAspect {
     }
 
     private void convertAccountNamesToUpperCase(List<Account> result) {
-
         // loop through accounts
         for (Account tempAccount : result) {
 
@@ -82,6 +79,28 @@ public class MyDemoLoggingAspect {
             // update the name on the account
             tempAccount.setName(theUpperName);
         }
+    }
 
+    @AfterThrowing(
+            pointcut = "execution(* com.nigel.AOPDemo.dao.AccountDAO.findAccounts(..))",
+            throwing = "theExc"
+    )
+    public void afterThrowingFindAccountsAdvice(
+            JoinPoint theJoinPoint,
+            Throwable theExc)
+    {
+        // print out which method we are advising on
+        String method = theJoinPoint.getSignature().toShortString();
+        System.out.println("\n====>>> Executing @AfterThrowing on method: " + method);
+
+        // log the exception
+        System.out.println("\n====>>> The exception is: " + theExc);
+    }
+
+    @After("execution(* com.nigel.AOPDemo.dao.AccountDAO.findAccounts(..))")
+    public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
+        // print out which method we are advising on
+        String method = theJoinPoint.getSignature().toShortString();
+        System.out.println("\n====>>> Executing @After (finally) on method: " + method);
     }
 }
